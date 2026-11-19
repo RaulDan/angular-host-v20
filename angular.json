@@ -24,6 +24,21 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "../book-library-angular/dist/webComponent-book-library-angular/browser",
+                "output": "book-library"
+              },
+              {
+                "glob": "**/*",
+                "input": "../to-do-list-react/build/to-do-list-web-component",
+                "output": "to-do-list-react"
+              },
+              {
+                "glob": "**/*",
+                "input": "../goals-tracker/.svelte-kit/web-component",
+                "output": "goals-tracker"
               }
             ],
             "styles": [
@@ -78,6 +93,21 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "../book-library-angular/dist/webComponent-book-library-angular/browser",
+                "output": "book-library"
+              },
+              {
+                "glob": "**/*",
+                "input": "../to-do-list-react/build/to-do-list-web-component",
+                "output": "to-do-list-react"
+              },
+              {
+                "glob": "**/*",
+                "input": "../goals-tracker/.svelte-kit/web-component",
+                "output": "goals-tracker"
               }
             ],
             "styles": [

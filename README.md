@@ -7,10 +7,35 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-ng serve
+npm run serve-angularv20-host
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Once the server is running, open your browser and navigate to `http://localhost:4201/`. The application will automatically reload whenever you modify any of the source files.
+
+## Book library Web Component
+
+Before starting or building this host, run `npm run build-web-elem-angular` in
+the sibling `book-library-angular` project. The host's asset configuration serves
+that project's `dist/webComponent-book-library-angular/browser` files under
+`book-library/`, including the component script and stylesheet loaded by
+`src/index.html`. The host build also copies these files into its output.
+
+Run `npm run start:mock-server` in `book-library-angular` for the books API on
+port 7002. The library's frontend development server is not required.
+After changing the library, rebuild its Web Component and reload the host.
+
+## React and Svelte Web Components
+
+Before starting or building this host, run `npm run build-web-component-react`
+in `to-do-list-react` and `npm run build-web-component-svelte` in `goals-tracker`.
+The host exposes the React build under `to-do-list-react/` (including its
+`static` directory) and the Svelte build under `goals-tracker/`.
+The source filesystem paths are not part of these public URLs.
+
+Run `npm run start:mock-server` in each project for the to-do API on port 7000
+and goals API on port 7001. Their frontend development servers are not required.
+Restart the host after changing `angular.json` asset mappings; rebuild the
+components and reload the host after changing their source.
 
 ## Code scaffolding
 
