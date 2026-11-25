@@ -9,7 +9,7 @@
   <p id="mfe-not-found" hidden>Page not found. Use the navigation above.</p>
   <div class="mfe-apps">
     @for (name of ['books', 'todos', 'goals']; track name) {
-      <section class="mfe-app" [attr.data-mfe]="name">
+      <section class="mfe-app" [id]="'mfe-section-' + name" [attr.data-mfe]="name">
         <div class="mfe-error" [id]="'mfe-error-' + name" role="alert" hidden>
           <span></span> <button type="button" data-mfe-reload>Reload</button>
         </div>
