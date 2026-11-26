@@ -5,9 +5,10 @@
     <a data-mfe-link href="/angular">Angular books</a>
     <a data-mfe-link href="/react">React to-do list</a>
     <a data-mfe-link href="/svelte">Svelte goals</a>
+    <a data-mfe-link href="/all-together">All together</a>
   </nav>
   <p id="mfe-not-found" hidden>Page not found. Use the navigation above.</p>
-  <div class="mfe-apps">
+  <div class="mfe-apps" id="mfe-apps">
     @for (name of ['books', 'todos', 'goals']; track name) {
       <section class="mfe-app" [id]="'mfe-section-' + name" [attr.data-mfe]="name">
         <div class="mfe-error" [id]="'mfe-error-' + name" role="alert" hidden>

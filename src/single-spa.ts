@@ -25,6 +25,10 @@ function pathname(): string {
   return location.pathname.replace(/\/+$/, '') || '/';
 }
 
+function matchesAppRoute(path: string, app: (typeof apps)[number]): boolean {
+  return path === app.route || (app.name === 'books' && path.startsWith(`${app.route}/`));
+}
+
 function element(id: string): HTMLElement {
   const result = document.getElementById(id);
   if (!result) throw new Error(`Missing single-spa host element: ${id}`);
@@ -33,10 +37,11 @@ function element(id: string): HTMLElement {
 
 function updateLayout(): void {
   const path = pathname();
+  element('mfe-apps').classList.toggle('all-together', path === '/all-together');
   for (const app of apps) {
-    element(`mfe-section-${app.name}`).hidden = path !== '/' && path !== app.route;
+    element(`mfe-section-${app.name}`).hidden = path !== '/' && path !== '/all-together' && !matchesAppRoute(path, app);
   }
-  element('mfe-not-found').hidden = path === '/' || apps.some((app) => app.route === path);
+  element('mfe-not-found').hidden = path === '/' || path === '/all-together' || apps.some((app) => matchesAppRoute(path, app));
   document.querySelectorAll<HTMLAnchorElement>('[data-mfe-link]').forEach((link) => {
     if (link.getAttribute('href') === path) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -71,8 +76,11 @@ export function startSingleSpa(): void {
         element(`mfe-error-${app.name}`).hidden = true;
         return lifecycles;
       },
-      activeWhen: () => pathname() === '/' || pathname() === app.route,
-      customProps: { domElement: element(`mfe-${app.name}`) },
+      activeWhen: () => pathname() === '/' || pathname() === '/all-together' || matchesAppRoute(pathname(), app),
+      customProps: {
+        domElement: element(`mfe-${app.name}`),
+        ...(app.name === 'books' ? { bookRouting: { basePath: app.route, sharedPaths: ['/', '/all-together'] } } : {}),
+      },
     });
   }
   addErrorHandler((error) => showError(error.appOrParcelName, error));
