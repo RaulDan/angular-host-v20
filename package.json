@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm --prefix .. run dev:single-spa:angular",
-    "serve": "ng serve --port=4202",
+    "start": "ng serve --port=4201",
+    "serve": "ng serve --port=4201",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

@@ -11,15 +11,14 @@ type RemoteUrls = {
 declare global {
   interface Window {
     singleSpaRemoteUrls?: RemoteUrls;
-    bookLibrarySingleSpa?: LifeCycles;
   }
 }
 
 const urls = window.singleSpaRemoteUrls ?? {};
 const apps = [
   { name: 'books', route: '/angular', url: urls.books },
-  { name: 'todos', route: '/react', url: urls.todos ?? 'http://localhost:3000/single-spa.js' },
-  { name: 'goals', route: '/svelte', url: urls.goals ?? 'http://localhost:5000/single-spa.js' },
+  { name: 'todos', route: '/react', url: urls.todos ?? 'http://localhost:3000/single-spa/single-spa.js' },
+  { name: 'goals', route: '/svelte', url: urls.goals ?? 'http://localhost:5000/single-spa/single-spa.js' },
 ];
 
 function pathname(): string {
@@ -56,12 +55,8 @@ function showError(name: string, error: Error): void {
 
 async function loadApplication(name: string, url?: string): Promise<LifeCycles> {
   if (name === 'books' && !url) {
-    const bookBundle = urls.bookBundle ?? 'http://localhost:4200/main.js';
-    await import(/* @vite-ignore */ bookBundle);
-    if (!window.bookLibrarySingleSpa) {
-      throw new Error('The Angular book library did not register its lifecycles.');
-    }
-    return window.bookLibrarySingleSpa;
+    const bookBundle = urls.bookBundle ?? 'http://localhost:4200/single-spa/main.js';
+    return import(/* @vite-ignore */ bookBundle);
   }
   if (!url) throw new Error(`No URL configured for ${name}.`);
   return import(/* @vite-ignore */ url);
